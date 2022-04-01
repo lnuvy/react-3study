@@ -5,7 +5,6 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      하이하이~
       <Routes>
         <Route path="/" element={<PostList />} />
       </Routes>

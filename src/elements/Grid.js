@@ -1,15 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 const Grid = (props) => {
-  const { is_flex, width, margin, padding, bg, children } = props;
-
-  const styles = {
-    is_flex,
-    width,
-    margin,
-    padding,
-    bg,
-  };
+  const { children, ...styles } = props;
 
   return <GridBox {...styles}>{children}</GridBox>;
 };

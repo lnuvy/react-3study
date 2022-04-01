@@ -3,20 +3,17 @@ import Grid from "../elements/Grid";
 import Image from "../elements/Image";
 
 const Post = (props) => {
+  console.log(props);
   return (
-    <Grid padding="16px">
+    <Grid>
       <Grid is_flex>
-        <Image shape="circle" src={props.src} />
+        <Image size={40} shape="circle" src={props.user_info.user_profile} />
       </Grid>
       <Grid padding="16px"></Grid>
       <Grid>
-        <Image shape="rectangle" src={props.src} />
+        <Image shape="rectangle" src={props.image_url} />
       </Grid>
       <Grid padding="16px"></Grid>
-      <h1>user profile / user name / insert_dt / is_me </h1>
-      <div>{props.contents}</div>
-      <div>img</div>
-      <div>comment cnt</div>
     </Grid>
   );
 };
