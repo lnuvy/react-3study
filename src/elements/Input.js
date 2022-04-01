@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-  const { label, _onChange } = props;
+  const { label = "텍스트", _onChange = () => {} } = props;
 
   return (
     <>
@@ -14,10 +14,10 @@ const Input = (props) => {
   );
 };
 
-Input.defaultProps = {
-  label: "텍스트",
-  _onChange: () => {},
-};
+// Input.defaultProps = {
+//   label: "텍스트",
+//   _onChange: () => {},
+// };
 
 const InputWrap = styled.div`
   margin-bottom: 10px;

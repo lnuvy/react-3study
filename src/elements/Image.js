@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Image = (props) => {
   const { shape, src, size } = props;
-  console.log(props);
 
   const styles = {
     src,

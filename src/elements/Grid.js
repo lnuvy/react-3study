@@ -4,8 +4,6 @@ import styled from "styled-components";
 const Grid = (props) => {
   const { children, ...styles } = props;
 
-  console.log(styles);
-
   return <GridBox {...styles}>{children}</GridBox>;
 };
 

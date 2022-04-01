@@ -1,8 +1,10 @@
-import { Route, Routes } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { Route } from "react-router-dom";
 import Header from "../components/Header";
 import { Grid } from "../elements";
 import { Login, NotFound, PostList } from "../pages";
 import Register from "../pages/Register";
+import { history } from "../redux/configureStore";
 
 import "./App.css";
 
@@ -10,12 +12,12 @@ function App() {
   return (
     <Grid padding="12px">
       <Header />
-      <Routes>
-        <Route path="/" element={<PostList />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+      <ConnectedRouter history={history}>
+        <Route path="/" exact component={PostList} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
         <Route path="/*" element={<NotFound />} />
-      </Routes>
+      </ConnectedRouter>
     </Grid>
   );
 }
