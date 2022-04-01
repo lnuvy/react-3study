@@ -4,7 +4,7 @@ import { Button, Grid, Input, Text } from "../elements";
 const Login = () => {
   return (
     <>
-      <Grid padding="16px">
+      <Grid padding="16px" margin="20px">
         <Text size="32px" bold>
           로그인
         </Text>

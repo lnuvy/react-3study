@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Image, Text } from "../elements";
 
 const Post = (props) => {
-  console.log(props);
   return (
     <Grid>
       <Grid is_flex>

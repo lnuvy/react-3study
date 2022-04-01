@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+
 const Grid = (props) => {
   const { children, ...styles } = props;
+
+  console.log(styles);
 
   return <GridBox {...styles}>{children}</GridBox>;
 };
@@ -16,16 +19,17 @@ Grid.defaultProps = {
 };
 
 const GridBox = styled.div`
-  width: ${(props) => props.width};
-  height: 100%;
-  box-sizing: border-box;
-  ${(props) => (props.padding ? `padding: ${props.padding}` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin}` : "")}
-  ${(props) => (props.bg ? `background: ${props.bg}` : "")}
   ${(props) =>
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between;`
-      : ""}
+      : null}
+
+  height: 100%;
+  box-sizing: border-box;
+  width: ${(props) => props.width};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : null)}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
+  ${(props) => (props.bg ? `background: ${props.bg};` : null)}
 `;
 
 export default Grid;
