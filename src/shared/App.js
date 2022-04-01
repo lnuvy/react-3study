@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import PostList from "../pages/PostList";
+import { Login, NotFound, PostList } from "../pages";
+
 import "./App.css";
 
 function App() {
@@ -7,6 +8,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<PostList />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
   );
