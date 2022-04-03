@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Grid, Input, Text } from "../elements";
-import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
+import { getCookie, deleteCookie } from "../shared/Cookie";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck } from "../shared/common";
 
 const Login = () => {
-  const login = () => {
-    setCookie("user_id", "lnuvy", 3);
-    setCookie("user_pwd", "qwer1234", 3);
-  };
+  const dispatch = useDispatch();
 
-  console.log(getCookie("user_id"));
+  const [id, setId] = useState("");
+  const [pwd, setPwd] = useState("");
+
+  const login = () => {
+    if (id === "" || pwd === "") {
+      alert("아이디 / 비밀번호를 입력하세요");
+      return;
+    }
+    if (!emailCheck(id)) {
+      alert("이메일 형식이 맞지 않습니다");
+      return;
+    }
+    dispatch(userActions.loginFB(id, pwd));
+  };
 
   return (
     <>
@@ -17,13 +30,29 @@ const Login = () => {
           로그인
         </Text>
         <Grid padding="16px 0px">
-          <Input label="아이디" />
+          <Input
+            id="loginId"
+            label="아이디"
+            _onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
         </Grid>
         <Grid padding="16px 0px">
-          <Input label="패스워드" />
+          <Input
+            id="loginPwd"
+            label="패스워드"
+            type="password"
+            _onChange={(e) => {
+              setPwd(e.target.value);
+            }}
+          />
         </Grid>
         <Button text="로그인하기" _onClick={login} />
-        <Button text="쿠키삭제" _onClick={() => deleteCookie("user_pwd")} />
+        <Button
+          text="로그아웃"
+          _onClick={() => dispatch(userActions.logOutFB())}
+        />
       </Grid>
     </>
   );
