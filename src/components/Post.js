@@ -2,11 +2,12 @@ import React from "react";
 import { Grid, Image, Text } from "../elements";
 
 const Post = (props) => {
+  console.log(props.user_info);
   return (
     <Grid>
       <Grid is_flex>
         <Image size={40} shape="circle" src={props.user_info.user_profile} />
-        <Text>{props.user_info.user_name}</Text>
+        <Text bold>{props.user_info.user_name}</Text>
         <Text>{props.insert_dt}</Text>
       </Grid>
       <Grid padding="16px">{props.contents}</Grid>

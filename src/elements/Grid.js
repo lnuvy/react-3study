@@ -14,6 +14,7 @@ Grid.defaultProps = {
   padding: false,
   margin: false,
   bg: false,
+  center: false,
 };
 
 const GridBox = styled.div`
@@ -28,6 +29,7 @@ const GridBox = styled.div`
   ${(props) => (props.padding ? `padding: ${props.padding};` : null)}
   ${(props) => (props.margin ? `margin: ${props.margin};` : null)}
   ${(props) => (props.bg ? `background: ${props.bg};` : null)}
+  ${(props) => (props.center ? `text-align: center;` : "")}
 `;
 
 export default Grid;

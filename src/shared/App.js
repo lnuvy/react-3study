@@ -39,7 +39,13 @@ function App() {
         </ConnectedRouter>
       </Grid>
       <Permit>
-        <Button isFloat text="+" />
+        <Button
+          isFloat
+          text="+"
+          _onClick={() => {
+            history.push("/write");
+          }}
+        />
       </Permit>
     </>
   );
