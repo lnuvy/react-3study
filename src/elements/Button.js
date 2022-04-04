@@ -36,7 +36,7 @@ Button.defaultProps = {
 };
 
 const ElButton = styled.button`
-  font-size: 20px;
+  font-size: 16px;
   width: ${(props) => props.width};
   background-color: #212121;
   color: #fff;

@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Grid, Input } from "../elements";
+import { actionCreators as commentActions } from "../redux/modules/comment";
 
-const CommentWrite = () => {
+const CommentWrite = (props) => {
+  const dispatch = useDispatch();
+
+  const { post_id } = props;
+
   const [comment, setComment] = useState();
 
   const handleChange = (e) => {
@@ -9,7 +15,7 @@ const CommentWrite = () => {
   };
 
   const write = () => {
-    console.log(comment);
+    dispatch(commentActions.addCommentFB(post_id, comment));
     setComment("");
   };
 
@@ -20,6 +26,7 @@ const CommentWrite = () => {
           label="댓글 내용 입력"
           _onChange={handleChange}
           value={comment}
+          onSubmit={write}
         />
         <Button width="50px" margin="0 5px" _onClick={write}>
           작성

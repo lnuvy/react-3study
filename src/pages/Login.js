@@ -25,7 +25,7 @@ const Login = () => {
 
   return (
     <>
-      <Grid padding="16px" margin="20px">
+      <Grid padding="30px">
         <Text size="32px" bold>
           로그인
         </Text>
@@ -36,6 +36,7 @@ const Login = () => {
             _onChange={(e) => {
               setId(e.target.value);
             }}
+            value={id}
           />
         </Grid>
         <Grid padding="16px 0px">
@@ -43,6 +44,7 @@ const Login = () => {
             id="loginPwd"
             label="패스워드"
             type="password"
+            value={pwd}
             _onChange={(e) => {
               setPwd(e.target.value);
             }}

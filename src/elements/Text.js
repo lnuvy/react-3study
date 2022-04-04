@@ -13,6 +13,7 @@ Text.defaultProps = {
   color: "#222831",
   size: "14px",
   margin: false,
+  center: false,
 };
 
 const Ptag = styled.p`
@@ -21,6 +22,7 @@ const Ptag = styled.p`
   font-weight: ${(props) => (props.bold ? "600" : "400")};
 
   ${(props) => (props.margin ? `margin:${props.margin};` : "")}
+  ${(props) => (props.center ? `text-align: center;` : "")}
 `;
 
 export default Text;

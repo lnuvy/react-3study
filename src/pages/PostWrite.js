@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Unauth from "../components/Unauth";
 import Upload from "../components/Upload";
 import { Button, Grid, Image, Input, Text } from "../elements";
 import { actionCreators as imageActions } from "../redux/modules/image";
@@ -45,44 +46,35 @@ const PostWrite = (props) => {
   };
 
   if (!isLogin) {
-    return (
-      <Grid margin="auto 0" padding="16px" center>
-        <Text size="32px" bold>
-          잠깐!
-        </Text>
-        <Text size="24px">로그인 후에만 글을 쓸수있어요!</Text>
-        <Button
-          _onClick={() => {
-            history.replace("/");
-          }}
-        >
-          로그인 하러가기
-        </Button>
-      </Grid>
-    );
+    return <Unauth />;
   }
 
   return (
     <>
       <Grid padding="15px">
-        <Text margin="0px" size="36px" bold>
+        <Text margin="0px" size="32px" bold>
           {isEdit ? "게시글 작성" : "게시글 수정"}
         </Text>
-        <Upload />
+        <Grid margin="20px auto">
+          <Upload />
+        </Grid>
       </Grid>
       <Grid>
-        <Grid padding="16px">
-          <Text margin="0px" size="24px" bold>
+        <Grid>
+          <Text center margin="0px" size="24px" bold>
             미리보기
           </Text>
         </Grid>
-        <Image
-          shape="rectangle"
-          src={preview ? preview : "http://via.placeholder.com/400x300"}
-        />
+        <Grid padding="10px 50px 50px 50px" margin="0 0 20px 0">
+          <Image
+            shape="rectangle"
+            src={preview ? preview : "http://via.placeholder.com/400x300"}
+          />
+        </Grid>
       </Grid>
-      <Grid>
+      <Grid padding="16px">
         <Input
+          id="multi"
           value={contents}
           _onChange={changeContents}
           label="게시글 내용"

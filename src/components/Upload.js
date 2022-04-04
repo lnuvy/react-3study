@@ -9,8 +9,6 @@ const Upload = () => {
   const fileInput = useRef();
 
   const selectFile = (e) => {
-    console.log();
-
     const reader = new FileReader();
     const file = fileInput.current.files[0];
 
@@ -35,7 +33,7 @@ const Upload = () => {
         ref={fileInput}
         disabled={isUploading}
       />
-      <Button _onClick={uploadFB}>업로드하기</Button>
+      {/* <Button _onClick={uploadFB}>업로드하기</Button> */}
     </>
   );
 };
