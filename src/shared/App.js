@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
 import Header from "../components/Header";
+import Search from "../components/Search";
 import { Button, Grid } from "../elements";
 import { Login, NotFound, PostList, PostWrite } from "../pages";
 import PostDetail from "../pages/PostDetail";
@@ -35,7 +36,8 @@ function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/write" exact component={PostWrite} />
           <Route path="/post/:id" exact component={PostDetail} />
-          <Route path="/*" element={<NotFound />} />
+          <Route path="/search" exact component={Search} />
+          <Route path="/*" element={NotFound} />
         </ConnectedRouter>
       </Grid>
       <Permit>

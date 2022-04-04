@@ -7,11 +7,10 @@ import {
   browserSessionPersistence,
 } from "firebase/auth";
 
-import { getCookie, setCookie, deleteCookie } from "../../shared/Cookie";
+import { setCookie, deleteCookie } from "../../shared/Cookie";
 
 import { auth } from "../../shared/firebase";
 
-const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const SET_USER = "SET_USER";

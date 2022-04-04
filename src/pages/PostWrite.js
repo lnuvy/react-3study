@@ -7,6 +7,8 @@ import { actionCreators as postActions } from "../redux/modules/post";
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
+  const preview = useSelector((state) => state.image.preview);
+
   const { history } = props;
 
   const [contents, setContents] = useState("");
@@ -51,7 +53,10 @@ const PostWrite = (props) => {
             미리보기
           </Text>
         </Grid>
-        <Image shape="rectangle" />
+        <Image
+          shape="rectangle"
+          src={preview ? preview : "http://via.placeholder.com/400x300"}
+        />
       </Grid>
       <Grid>
         <Input _onChange={changeContents} label="게시글 내용" multiLine />

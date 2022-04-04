@@ -6180,6 +6180,11 @@ klona@^2.0.4, klona@^2.0.5:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.5.tgz#d166574d90076395d9963aa7a928fabb8d76afbc"
   integrity sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==
 
+knuth-morris-pratt@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/knuth-morris-pratt/-/knuth-morris-pratt-1.0.0.tgz#2f2c8cc95c61762d297cba348ad1f7e75925c94b"
+  integrity sha1-LyyMyVxhdi0pfLo0itH351klyUs=
+
 language-subtag-registry@~0.3.2:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz#04ac218bea46f04cb039084602c6da9e788dd45a"
@@ -6549,6 +6554,14 @@ no-case@^3.0.4:
   dependencies:
     lower-case "^2.0.2"
     tslib "^2.0.3"
+
+nodash@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/nodash/-/nodash-0.12.0.tgz#817efe7cf1d1e23b2b973115d06e0000e79ebf79"
+  integrity sha1-gX7+fPHR4jsrlzEV0G4AAOeev3k=
+  dependencies:
+    knuth-morris-pratt "^1.0.0"
+    steinhaus-johnson-trotter "^1.1.0"
 
 node-fetch@2.6.7:
   version "2.6.7"
@@ -8476,6 +8489,11 @@ stackframe@^1.1.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
+
+steinhaus-johnson-trotter@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/steinhaus-johnson-trotter/-/steinhaus-johnson-trotter-1.1.0.tgz#154e507839047337a212c181021c9f32e3a130bc"
+  integrity sha1-FU5QeDkEczeiEsGBAhyfMuOhMLw=
 
 string-length@^4.0.1:
   version "4.0.2"

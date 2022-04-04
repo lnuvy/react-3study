@@ -1,7 +1,10 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore } from "../../shared/firebase";
+import { firestore, storage } from "../../shared/firebase";
 import moment from "moment";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+
+import { actionCreators as imageActions } from "./image";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
@@ -31,22 +34,7 @@ const getPostFB = () => {
       docs.forEach((doc) => {
         let dummy = doc.data();
 
-        console.log(dummy);
-
-        // ['comment_cnt', 'contents', ...]
-        let post = Object.keys(dummy).reduce(
-          (acc, cur) => {
-            if (cur.includes("user_")) {
-              return {
-                ...acc.user_info,
-                [cur]: dummy[cur],
-              };
-            }
-            return { ...acc, [cur]: dummy[cur] };
-          },
-          { id: doc.id, user_info: {} }
-        );
-        post_list.push(post);
+        post_list.push({ ...dummy, id: doc.id });
       });
       dispatch(setPost(post_list));
     });
@@ -72,18 +60,38 @@ const addPostFB = (contents = "") => {
       insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
     };
 
-    console.log("66번 확인", data);
+    //// 이미지 포스트 관리
+    const image = getState().image.preview;
 
-    postDB
-      .add(data)
-      .then((doc) => {
-        let post = { ...data, id: doc.id };
-        dispatch(addPost(post));
-        history.replace("/");
-      })
-      .catch((err) => {
-        console.log("redux middleware 캐치문 만나버림", err);
-      });
+    // 아이디 고유값 설정
+    const storageRef = ref(
+      storage,
+      `images/${user_info.user_id}_${new Date().getTime()}`
+    );
+
+    uploadString(storageRef, image, "data_url").then((snapshot) => {
+      console.log("9버전!", snapshot);
+      getDownloadURL(storageRef)
+        // .then((url) => url)
+        .then((url) => {
+          postDB
+            .add({ ...data, iamge_url: url })
+            .then((doc) => {
+              let post = { ...data, id: doc.id, image_url: url };
+              dispatch(addPost(post));
+              history.replace("/");
+              dispatch(imageActions.setPreview(null));
+            })
+            .catch((err) => {
+              alert("post 작성 실패");
+              console.log("redux middleware 캐치문 만나버림", err);
+            });
+        })
+        .catch((err) => {
+          alert("이미지 업로드 실패");
+          console.log("이미지 업로드에서 에러 발생", err);
+        });
+    });
   };
 };
 
@@ -95,7 +103,6 @@ export default handleActions(
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log("리듀서", action.payload.post);
         draft.list.unshift(action.payload.post);
       }),
   },
