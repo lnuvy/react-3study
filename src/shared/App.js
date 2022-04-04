@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Search from "../components/Search";
 import { Button, Grid } from "../elements";
 import { Login, NotFound, PostList, PostWrite } from "../pages";
+import Notification from "../pages/Notification";
 import PostDetail from "../pages/PostDetail";
 import Register from "../pages/Register";
 import { history } from "../redux/configureStore";
@@ -35,8 +36,10 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
           <Route path="/write" exact component={PostWrite} />
+          <Route path="/write/:id" exact component={PostWrite} />
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/search" exact component={Search} />
+          <Route path="/noti" exact component={Notification} />
           <Route path="/*" element={NotFound} />
         </ConnectedRouter>
       </Grid>

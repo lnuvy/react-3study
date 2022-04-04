@@ -8,9 +8,14 @@ import { actionCreators as imageActions } from "./image";
 
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
+const EDIT_POST = "EDIT_POST";
 
 const setPost = createAction(SET_POST, (list) => ({ list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
+const editPost = createAction(EDIT_POST, (post_id, post) => ({
+  post_id,
+  post,
+}));
 
 const initialState = {
   list: [],
@@ -75,7 +80,7 @@ const addPostFB = (contents = "") => {
         // .then((url) => url)
         .then((url) => {
           postDB
-            .add({ ...data, iamge_url: url })
+            .add({ ...data, image_url: url })
             .then((doc) => {
               let post = { ...data, id: doc.id, image_url: url };
               dispatch(addPost(post));
@@ -95,6 +100,61 @@ const addPostFB = (contents = "") => {
   };
 };
 
+const editPostFB = (post_id = null, post = {}) => {
+  return function (dispatch, getState, { history }) {
+    if (!post_id) {
+      console.log("id 없음");
+      return;
+    }
+    const preview = getState().image.preview;
+
+    const postIndex = getState().post.list.findIndex((p) => p.id === post_id);
+    const data = getState().post.list[postIndex];
+
+    const postDB = firestore.collection("post");
+
+    if (preview === data.image_url) {
+      postDB
+        .doc(post_id)
+        .update(post)
+        .then((doc) => {
+          dispatch(editPost(post_id, { ...post }));
+          history.replace("/");
+        });
+    } else {
+      const user_id = getState().user.user.uid;
+      // 아이디 고유값 설정
+      const storageRef = ref(
+        storage,
+        `images/${user_id}_${new Date().getTime()}`
+      );
+
+      uploadString(storageRef, preview, "data_url").then((snapshot) => {
+        console.log("9버전!", snapshot);
+        getDownloadURL(storageRef)
+          // .then((url) => url)
+          .then((url) => {
+            postDB
+              .doc(post_id)
+              .update({ ...post, image_url: url })
+              .then((doc) => {
+                dispatch(editPost(post_id, { ...post, image_url: url }));
+                history.replace("/");
+              })
+              .catch((err) => {
+                alert("post 작성 실패");
+                console.log("redux middleware 캐치문 만나버림", err);
+              });
+          })
+          .catch((err) => {
+            alert("이미지 업로드 실패");
+            console.log("이미지 업로드에서 에러 발생", err);
+          });
+      });
+    }
+  };
+};
+
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
@@ -105,6 +165,13 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
       }),
+    [EDIT_POST]: (state, action) =>
+      produce(state, (draft) => {
+        let index = draft.list.findIndex(
+          (p) => p.id === action.payload.post_id
+        );
+        draft.list[index] = { ...draft.list[index], ...action.payload.post };
+      }),
   },
   initialState
 );
@@ -112,8 +179,10 @@ export default handleActions(
 const actionCreators = {
   setPost,
   addPost,
+  editPost,
   getPostFB,
   addPostFB,
+  editPostFB,
 };
 
 export { actionCreators };

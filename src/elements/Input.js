@@ -10,6 +10,7 @@ const Input = (props) => {
     id = "",
     type = "text",
     multiLine = false,
+    value = "",
   } = props;
 
   if (multiLine) {
@@ -18,7 +19,13 @@ const Input = (props) => {
         <Text bold size="24px">
           {label}
         </Text>
-        <ElTextarea id={id} onChange={_onChange} placeholder=" " rows="7" />
+        <ElTextarea
+          id={id}
+          onChange={_onChange}
+          placeholder=" "
+          rows="7"
+          value={value}
+        />
       </>
     );
   }

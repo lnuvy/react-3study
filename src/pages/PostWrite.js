@@ -1,24 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Upload from "../components/Upload";
 import { Button, Grid, Image, Input, Text } from "../elements";
+import { actionCreators as imageActions } from "../redux/modules/image";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
   const preview = useSelector((state) => state.image.preview);
+  const post_list = useSelector((state) => state.post.list);
+
+  // 수정시에만 id값이 넘어옴
+  const post_id = props.match.params.id;
+  const isEdit = post_id ? true : false;
+
+  let _post = isEdit ? post_list.find((p) => p.id === post_id) : null;
 
   const { history } = props;
 
-  const [contents, setContents] = useState("");
+  const [contents, setContents] = useState(_post ? _post.contents : "");
+
+  useEffect(() => {
+    if (isEdit && !_post) {
+      console.log("정보없음");
+      history.goBack();
+      return;
+    }
+    if (isEdit) {
+      dispatch(imageActions.setPreview(_post.image_url));
+    }
+  }, []);
 
   const changeContents = (e) => {
     setContents(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const addPost = () => {
     dispatch(postActions.addPostFB(contents));
+  };
+
+  const editPost = () => {
+    dispatch(postActions.editPostFB(post_id, { contents }));
   };
 
   if (!isLogin) {
@@ -43,7 +66,7 @@ const PostWrite = (props) => {
     <>
       <Grid padding="15px">
         <Text margin="0px" size="36px" bold>
-          게시글 작성
+          {isEdit ? "게시글 작성" : "게시글 수정"}
         </Text>
         <Upload />
       </Grid>
@@ -59,10 +82,19 @@ const PostWrite = (props) => {
         />
       </Grid>
       <Grid>
-        <Input _onChange={changeContents} label="게시글 내용" multiLine />
+        <Input
+          value={contents}
+          _onChange={changeContents}
+          label="게시글 내용"
+          multiLine
+        />
       </Grid>
       <Grid padding="15px">
-        <Button _onClick={handleSubmit}>작성</Button>
+        {!isEdit ? (
+          <Button _onClick={addPost}>작성</Button>
+        ) : (
+          <Button _onClick={editPost}>수정</Button>
+        )}
       </Grid>
     </>
   );
