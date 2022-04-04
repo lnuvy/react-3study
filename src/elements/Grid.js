@@ -2,9 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Grid = (props) => {
-  const { children, ...styles } = props;
+  const { _onClick, children, ...styles } = props;
 
-  return <GridBox {...styles}>{children}</GridBox>;
+  return (
+    <GridBox onClick={_onClick} {...styles}>
+      {children}
+    </GridBox>
+  );
 };
 
 Grid.defaultProps = {
@@ -15,6 +19,7 @@ Grid.defaultProps = {
   margin: false,
   bg: false,
   center: false,
+  _onClick: () => {},
 };
 
 const GridBox = styled.div`

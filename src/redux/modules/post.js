@@ -9,16 +9,21 @@ import { actionCreators as imageActions } from "./image";
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
 const EDIT_POST = "EDIT_POST";
+const LOADING = "LOADING";
 
-const setPost = createAction(SET_POST, (list) => ({ list }));
+const setPost = createAction(SET_POST, (list, paging) => ({ list, paging }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
+// 이거 이름 바꿔야할수도있어!
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
   list: [],
+  paging: { start: null, next: null, size: 3 },
+  is_loading: false,
 };
 
 const initialPost = {
@@ -30,19 +35,50 @@ const initialPost = {
 };
 
 // middlewares
-const getPostFB = () => {
+const getPostFB = (start = null, size = 3) => {
   return function (dispatch, getState, { history }) {
+    let _paging = getState().post.paging;
+    if (_paging.start && !_paging.next) return;
+
+    dispatch(loading(true));
     const postDB = firestore.collection("post");
+    let q = postDB.orderBy("insert_dt", "desc");
 
-    postDB.get().then((docs) => {
-      let post_list = [];
-      docs.forEach((doc) => {
-        let dummy = doc.data();
+    if (start) {
+      q = q.startAt(start);
+    }
 
-        post_list.push({ ...dummy, id: doc.id });
+    q.limit(size + 1)
+      .get()
+      .then((docs) => {
+        let post_list = [];
+        let paging = {
+          start: docs.docs[0],
+          next:
+            docs.docs.length === size + 1
+              ? docs.docs[docs.docs.length - 1]
+              : null,
+          size,
+        };
+
+        docs.forEach((doc) => {
+          let dummy = doc.data();
+          post_list.push({ ...dummy, id: doc.id });
+        });
+        post_list.pop();
+
+        dispatch(setPost(post_list, paging));
       });
-      dispatch(setPost(post_list));
-    });
+
+    // postDB.get().then((docs) => {
+    //   let post_list = [];
+    //   docs.forEach((doc) => {
+    //     let dummy = doc.data();
+
+    //     post_list.push({ ...dummy, id: doc.id });
+    //   });
+    //   dispatch(setPost(post_list));
+    // });
   };
 };
 
@@ -159,7 +195,10 @@ export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = action.payload.list;
+        // draft.list = action.payload.list;
+        draft.list.push(...action.payload.list);
+        draft.paging = action.payload.paging;
+        draft.is_loading = false;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -171,6 +210,10 @@ export default handleActions(
           (p) => p.id === action.payload.post_id
         );
         draft.list[index] = { ...draft.list[index], ...action.payload.post };
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
       }),
   },
   initialState

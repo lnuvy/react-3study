@@ -28,7 +28,7 @@ const Post = (props) => {
       <Grid padding="16px">
         <Text>{props.contents}</Text>
       </Grid>
-      <Grid>
+      <Grid padding="30px">
         <Image shape="rectangle" src={props.image_url} />
       </Grid>
       <Grid padding="16px">

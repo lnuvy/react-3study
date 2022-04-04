@@ -12,8 +12,8 @@ const PostWrite = (props) => {
   const post_list = useSelector((state) => state.post.list);
 
   // 수정시에만 id값이 넘어옴
-  const post_id = props.match.params.id;
-  const isEdit = post_id ? true : false;
+  const post_id = props.match.params.id || "write";
+  const isEdit = post_id !== "write" ? true : false;
 
   let _post = isEdit ? post_list.find((p) => p.id === post_id) : null;
 
