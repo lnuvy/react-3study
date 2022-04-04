@@ -191,13 +191,39 @@ const editPostFB = (post_id = null, post = {}) => {
   };
 };
 
+const getOnePostFB = (id) => {
+  return function (dispatch, getState, { history }) {
+    const postDB = firestore.collection("post");
+    postDB
+      .doc(id)
+      .get()
+      .then((doc) => {
+        let data = doc.data();
+        // Todo: 데이터형식 맞는지 봐야한다
+        dispatch(setPost([{ id: doc.id, ...data }]));
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         // draft.list = action.payload.list;
         draft.list.push(...action.payload.list);
-        draft.paging = action.payload.paging;
+
+        draft.list = draft.list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.id === cur.id) === -1) {
+            return [...acc, cur];
+          } else {
+            acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+            return acc;
+          }
+        }, []);
+        if (action.payload.paging) {
+          draft.paging = action.payload.paging;
+        }
+
         draft.is_loading = false;
       }),
     [ADD_POST]: (state, action) =>
@@ -224,6 +250,7 @@ const actionCreators = {
   addPost,
   editPost,
   getPostFB,
+  getOnePostFB,
   addPostFB,
   editPostFB,
 };

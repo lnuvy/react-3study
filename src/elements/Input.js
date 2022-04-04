@@ -34,7 +34,13 @@ const Input = (props) => {
   return (
     <>
       <InputWrap>
-        <InputBar type={type} id={id} onChange={_onChange} placeholder=" " />
+        <InputBar
+          type={type}
+          id={id}
+          onChange={_onChange}
+          placeholder=" "
+          value={value}
+        />
         <label>{label}</label>
       </InputWrap>
     </>

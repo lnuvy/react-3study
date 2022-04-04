@@ -17,7 +17,7 @@ const PostList = () => {
   } = useSelector((state) => state.post);
 
   useEffect(() => {
-    if (post_list.length === 0) dispatch(postActions.getPostFB());
+    if (post_list.length < 2) dispatch(postActions.getPostFB());
   }, []);
 
   return (

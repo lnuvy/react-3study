@@ -19,6 +19,7 @@ firebase.initializeApp(firebaseConfig);
 const apiKey = firebaseConfig.apiKey;
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+// getFirestore(firestore)
 const storage = getStorage();
 
 export { auth, apiKey, firestore, storage };
