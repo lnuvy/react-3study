@@ -5,7 +5,7 @@ import { Route } from "react-router-dom";
 import Header from "../components/Header";
 import Search from "../components/Search";
 import { Button, Grid } from "../elements";
-import { Login, NotFound, PostList, PostWrite } from "../pages";
+import { Login, NotFound, PostList, PostWrite, Profile } from "../pages";
 import Notification from "../pages/Notification";
 import PostDetail from "../pages/PostDetail";
 import Register from "../pages/Register";
@@ -39,6 +39,7 @@ function App() {
           <Route path="/write/:id" exact component={PostWrite} />
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/search" exact component={Search} />
+          <Route path="/profile/:id" exact component={Profile} />
           <Route path="/noti" exact component={Notification} />
           <Route path="/*" element={NotFound} />
         </ConnectedRouter>

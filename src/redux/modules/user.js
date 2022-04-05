@@ -14,10 +14,12 @@ import { auth } from "../../shared/firebase";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const SET_USER = "SET_USER";
+const SET_PROFILE = "SET_PROFILE";
 
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
+const setProfile = createAction(SET_PROFILE, (user) => ({ user }));
 
 const initialState = {
   user: null,
@@ -114,6 +116,37 @@ const logOutFB = () => {
   };
 };
 
+// 프로필 수정
+const setProfileFB = (user_name, profileURL = null) => {
+  return function (dispatch, getState, { history }) {
+    const user = auth.currentUser;
+    if (user !== null) {
+      if (!profileURL) {
+        console.log(user);
+        user
+          .updateProfile({
+            displayName: user_name,
+          })
+          .then(() => {
+            console.log(user.displayName);
+            dispatch(
+              setProfile({
+                id: user.email,
+                uid: user.uid,
+                user_name: user.displayName,
+                user_profile: "",
+              })
+            );
+            history.replace("/");
+          })
+          .catch(() => {
+            console.log("닉네임 바꾸는데 에러뜸~");
+          });
+      }
+    }
+  };
+};
+
 export default handleActions(
   {
     [SET_USER]: (state, action) =>
@@ -129,6 +162,10 @@ export default handleActions(
         draft.isLogin = false;
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
+    [SET_PROFILE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user.user_name = action.payload.user.user_name;
+      }),
   },
   initialState
 );
@@ -140,6 +177,7 @@ const actionCreators = {
   loginFB,
   loginCheckFB,
   logOutFB,
+  setProfileFB,
 };
 
 export { actionCreators };

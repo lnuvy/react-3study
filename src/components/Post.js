@@ -4,9 +4,13 @@ import moment from "moment";
 import "moment/locale/ko";
 
 import { history } from "../redux/configureStore";
+import { useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const Post = (props) => {
-  const { insert_dt } = props;
+  const dispatch = useDispatch();
+
+  const { insert_dt, id: post_id } = props;
 
   const changeTime = (insert_dt) => {
     const text = moment(insert_dt).fromNow();
@@ -16,21 +20,39 @@ const Post = (props) => {
   return (
     <Grid>
       <Grid is_flex padding="16px">
-        <Grid is_flex width="auto">
+        <Grid
+          is_flex
+          width="auto"
+          _onClick={() => {
+            history.push(`/post/${post_id}`);
+          }}
+        >
           <Image size={40} shape="circle" src={props.src} />
           <Text bold>{props.user_info.user_name}</Text>
         </Grid>
         <Grid is_flex width="auto">
           <Text>{changeTime(insert_dt)}</Text>
           {props.is_me && (
-            <Button
-              width="auto"
-              margin="4px"
-              padding="4px"
-              _onClick={() => history.push(`/write/${props.id}`)}
-            >
-              수정
-            </Button>
+            <>
+              <Button
+                width="auto"
+                margin="4px 5px"
+                padding="7px"
+                _color="#5eaba5"
+                _onClick={() => history.push(`/write/${post_id}`)}
+              >
+                수정
+              </Button>
+              <Button
+                width="auto"
+                margin="4px 5px"
+                padding="7px"
+                _color="#d03333"
+                _onClick={() => dispatch(postActions.deletePostFB(post_id))}
+              >
+                삭제
+              </Button>
+            </>
           )}
         </Grid>
       </Grid>

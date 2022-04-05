@@ -32,26 +32,13 @@ const PostList = () => {
           {post_list.map((p) => {
             if (p.user_info.user_id === user_info?.uid) {
               return (
-                <Grid
-                  margin="20px auto"
-                  width="90%"
-                  bg="white"
-                  key={p.id}
-                  _onClick={() => {
-                    history.push(`/post/${p.id}`);
-                  }}
-                >
+                <Grid margin="20px auto" width="90%" bg="white" key={p.id}>
                   <Post {...p} is_me />
                 </Grid>
               );
             } else {
               return (
-                <Grid
-                  key={p.id}
-                  _onClick={() => {
-                    history.push(`/post/${p.id}`);
-                  }}
-                >
+                <Grid key={p.id}>
                   <Post {...p} />;
                 </Grid>
               );

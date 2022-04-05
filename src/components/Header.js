@@ -26,7 +26,10 @@ const Header = (props) => {
             </Text>
           </Grid>
           <Grid is_flex>
-            <Button text="내정보"></Button>
+            <Button
+              text="내정보"
+              _onClick={() => history.push(`/profile/${is_login.uid}`)}
+            ></Button>
             <NotiBadge
               _onClick={() => {
                 history.push("/noti");

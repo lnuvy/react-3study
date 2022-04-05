@@ -33,7 +33,6 @@ const Upload = () => {
         ref={fileInput}
         disabled={isUploading}
       />
-      {/* <Button _onClick={uploadFB}>업로드하기</Button> */}
     </>
   );
 };
