@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../components/Post";
-import { Grid } from "../elements";
+import { Button, Grid } from "../elements";
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "../redux/modules/post";
 import InfinityScroll from "../shared/InfinityScroll";
+import Permit from "../shared/Permit";
 
 const PostList = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,15 @@ const PostList = () => {
           })}
         </InfinityScroll>
       </Grid>
+      <Permit>
+        <Button
+          isFloat
+          text="+"
+          _onClick={() => {
+            history.push("/write");
+          }}
+        />
+      </Permit>
     </>
   );
 };

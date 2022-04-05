@@ -1,9 +1,18 @@
 import React from "react";
 import { Button, Grid, Image, Text } from "../elements";
+import moment from "moment";
+import "moment/locale/ko";
 
 import { history } from "../redux/configureStore";
 
 const Post = (props) => {
+  const { insert_dt } = props;
+
+  const changeTime = (insert_dt) => {
+    const text = moment(insert_dt).fromNow();
+    return text;
+  };
+
   return (
     <Grid>
       <Grid is_flex padding="16px">
@@ -12,7 +21,7 @@ const Post = (props) => {
           <Text bold>{props.user_info.user_name}</Text>
         </Grid>
         <Grid is_flex width="auto">
-          <Text>{props.insert_dt}</Text>
+          <Text>{changeTime(insert_dt)}</Text>
           {props.is_me && (
             <Button
               width="auto"

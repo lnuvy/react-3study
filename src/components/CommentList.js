@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Image, Text } from "../elements";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import moment from "moment";
+import "moment/locale/ko";
 
 const CommentList = (props) => {
   const dispatch = useDispatch();
@@ -41,6 +43,11 @@ const CommentItem = (props) => {
     insert_dt = "2022-04-01",
   } = props;
 
+  const changeTime = (insert_dt) => {
+    const text = moment(insert_dt).fromNow();
+    return text;
+  };
+
   return (
     <Grid is_flex>
       <Grid is_flex width="auto">
@@ -49,7 +56,7 @@ const CommentItem = (props) => {
       </Grid>
       <Grid is_flex margin="0 5px">
         <Text margin="0px">{contents}</Text>
-        <Text margin="0px">{insert_dt}</Text>
+        <Text margin="0px">{changeTime(insert_dt)}</Text>
       </Grid>
     </Grid>
   );

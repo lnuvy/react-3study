@@ -14,7 +14,7 @@ import { history } from "../redux/configureStore";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import { apiKey } from "./firebase";
-import Permit from "./Permit";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      <Grid>
+      <div className="App">
         <Header />
         <ConnectedRouter history={history}>
           <Route path="/" exact component={PostList} />
@@ -42,16 +42,7 @@ function App() {
           <Route path="/noti" exact component={Notification} />
           <Route path="/*" element={NotFound} />
         </ConnectedRouter>
-      </Grid>
-      <Permit>
-        <Button
-          isFloat
-          text="+"
-          _onClick={() => {
-            history.push("/write");
-          }}
-        />
-      </Permit>
+      </div>
     </>
   );
 }
