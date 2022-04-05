@@ -23,24 +23,15 @@ body {
   .App {
     width: 76%;
   }
-  .App p {
-    font-size: 1.05rem;
-  }
 }
 
 @media only screen and (min-width: 899px) {
   .App {
     width: 70%;
   }
-  .App p {
-    font-size: 1.2rem;
-  }
 }
 @media only screen and (min-width: 1399px) {
   .App {
     width: 60%;
-  }
-  .App p {
-    font-size: 1.2rem;
   }
 }

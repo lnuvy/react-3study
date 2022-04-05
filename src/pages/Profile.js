@@ -22,18 +22,24 @@ const Profile = (props) => {
           <Text center bold size="24px">
             아직 설정한 이미지가 없습니다.
           </Text>
-          <Text center>(매운맛 좀 하다가 심심하면 추가할 예정)</Text>
+
+          {/* <Text center>(매운맛 좀 하다가 심심하면 추가할 예정)</Text> */}
+          <Text center>
+            user 안에 있는 photoURL 을 변경해주면 프로필 사진이 바뀝니다. 이거
+            구현해봤자 <br />
+            파이어베이스 실력이 느는거지 리액트 실력이 느는게 아니어서 안함.
+            절대 귀찮아서 안하는거아님
+          </Text>
         </>
       ) : (
         <Image size={40} shape="circle" src={user_info.user_profile} />
       )}
-
       <Grid margin="20px auto">
         <Upload />
       </Grid>
       <Grid>
         {user_id === param_id ? (
-          <Grid padding="16px">
+          <Grid padding="16px" width="50%" margin="0 auto">
             <Text size="24px" bold>
               닉네임 수정
             </Text>

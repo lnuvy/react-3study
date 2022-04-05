@@ -28,7 +28,13 @@ const CommentWrite = (props) => {
           value={comment}
           onSubmit={write}
         />
-        <Button width="50px" margin="0 5px" _onClick={write}>
+        <Button
+          width="100px"
+          margin="0 20px"
+          padding="16px 8px;"
+          _onClick={write}
+          _color="#3c40c6"
+        >
           작성
         </Button>
       </Grid>

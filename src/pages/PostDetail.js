@@ -26,10 +26,10 @@ const PostDetail = (props) => {
       {post && (
         <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />
       )}
+      <CommentList post_id={id} />
       <Permit>
         <CommentWrite post_id={id} />
       </Permit>
-      <CommentList post_id={id} />
     </>
   );
 };

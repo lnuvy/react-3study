@@ -19,13 +19,20 @@ Grid.defaultProps = {
   margin: false,
   bg: false,
   center: false,
+  is_flex_center: false,
   _onClick: () => {},
+  _cursor: false,
 };
 
 const GridBox = styled.div`
+  ${(props) => (props._cursor ? `cursor: pointer;` : "")};
   ${(props) =>
     props.is_flex
       ? `display: flex; align-items: center; justify-content: space-between;`
+      : null}
+  ${(props) =>
+    props.is_flex_center
+      ? `display: flex; align-items: center; justify-content: center;`
       : null}
 
   height: 100%;

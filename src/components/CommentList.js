@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, Image, Text } from "../elements";
+import { Button, Grid, Image, Text } from "../elements";
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import Permit from "../shared/Permit";
 import moment from "moment";
 import "moment/locale/ko";
 
 const CommentList = (props) => {
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comment.list);
-  console.log(comment_list);
   const { post_id = null } = props;
 
   useEffect(() => {
@@ -50,13 +50,26 @@ const CommentItem = (props) => {
 
   return (
     <Grid is_flex>
-      <Grid is_flex width="auto">
+      <Grid is_flex_center width="35%">
         <Image shape="circle" />
         <Text bold>{user_name}</Text>
       </Grid>
       <Grid is_flex margin="0 5px">
         <Text margin="0px">{contents}</Text>
-        <Text margin="0px">{changeTime(insert_dt)}</Text>
+        <Grid is_flex width="30%" margin="0 10px">
+          <Text margin="0px">{changeTime(insert_dt)}</Text>
+          <Permit>
+            <Button
+              width="auto"
+              margin="4px 5px"
+              padding="7px"
+              _color="#d03333"
+              _onClick={() => console.log("삭제")}
+            >
+              삭제
+            </Button>
+          </Permit>
+        </Grid>
       </Grid>
     </Grid>
   );

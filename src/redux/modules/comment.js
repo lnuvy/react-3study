@@ -9,6 +9,7 @@ import { actionCreators as postActions } from "./post";
 
 const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
+const DELETE_COMMENT = "DELETE_COMMENT";
 
 const LOADING = "LOADING";
 
@@ -19,6 +20,10 @@ const setComment = createAction(SET_COMMENT, (post_id, comment_list) => ({
 const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({
   post_id,
   comment,
+}));
+const deleteComment = createAction(DELETE_COMMENT, (post_id, comment_id) => ({
+  post_id,
+  comment_id,
 }));
 
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
@@ -109,6 +114,10 @@ const getCommentFB = (post_id) => {
         console.log("댓글 정보 못가져옴 ", err);
       });
   };
+};
+
+const deleteCommentFB = (post_id) => {
+  return function (dispatch, getState, { history }) {};
 };
 
 export default handleActions(

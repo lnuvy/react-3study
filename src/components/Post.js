@@ -62,7 +62,12 @@ const Post = (props) => {
       <Grid padding="30px">
         <Image shape="rectangle" src={props.image_url} />
       </Grid>
-      <Grid padding="16px">
+      <Grid
+        padding="16px"
+        _onClick={() => {
+          history.push(`/post/${post_id}`);
+        }}
+      >
         <Text margin="0px" bold>
           댓글 {props.comment_cnt}개
         </Text>

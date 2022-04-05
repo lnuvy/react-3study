@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Badge } from "@material-ui/core";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+// import NotificationsIcon from "@material-ui/icons/Notifications";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { realtime } from "../shared/firebase";
 import { useSelector } from "react-redux";
 
@@ -32,7 +33,7 @@ const NotiBadge = (props) => {
         invisible={isRead}
         onClick={notiCheck}
       >
-        <NotificationsIcon />
+        <NotificationsNoneOutlinedIcon />
       </Badge>
     </>
   );
