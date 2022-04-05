@@ -4,6 +4,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 // import "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import "firebase/compat/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBFxvmU5Xj6-kT_ioIwZMapmwYrvWqDzDw",
@@ -21,5 +22,6 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 // getFirestore(firestore)
 const storage = getStorage();
+const realtime = firebase.database();
 
-export { auth, apiKey, firestore, storage };
+export { auth, apiKey, firestore, storage, realtime };

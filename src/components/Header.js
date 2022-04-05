@@ -5,6 +5,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import { history } from "../redux/configureStore";
 import Permit from "../shared/Permit";
+import NotiBadge from "./NotiBadge";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -14,17 +15,20 @@ const Header = (props) => {
       <Grid is_flex padding="16px">
         <Grid>
           <Text margin="0px" size="24px" bold>
-            헤더임
+            Firebase 사진첩
           </Text>
         </Grid>
         <Grid is_flex>
           <Button text="내정보"></Button>
-          <Button
-            text="알림"
+          <NotiBadge
             _onClick={() => {
               history.push("/noti");
             }}
-          ></Button>
+          />
+          {/* <Button
+            text="알림"
+            
+          ></Button> */}
           <Button
             text="로그아웃"
             _onClick={() => dispatch(userActions.logOutFB())}

@@ -48,13 +48,11 @@ const Login = () => {
             _onChange={(e) => {
               setPwd(e.target.value);
             }}
+            is_submit
+            onSubmit={login}
           />
         </Grid>
         <Button text="로그인하기" _onClick={login} />
-        <Button
-          text="로그아웃"
-          _onClick={() => dispatch(userActions.logOutFB())}
-        />
       </Grid>
     </>
   );
