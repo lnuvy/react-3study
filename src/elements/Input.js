@@ -95,7 +95,7 @@ const InputWrap = styled.div`
   align-items: center;
 
   & label {
-    z-index: -999;
+    /* z-index: -999; */
     padding: 0 5px;
     position: absolute;
     left: 10px;
@@ -116,6 +116,7 @@ const InputWrap = styled.div`
 `;
 
 const InputBar = styled.input`
+  z-index: 998;
   width: 100%;
   padding: 12px 8px;
   border: 1px solid #212121;

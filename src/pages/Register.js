@@ -38,16 +38,36 @@ const Register = () => {
         회원가입
       </Text>
       <Grid padding="16px 0px">
-        <Input id="id" label="아이디" _onChange={handleChange} />
+        <Input
+          value={inputs.id}
+          id="id"
+          label="아이디"
+          _onChange={handleChange}
+        />
       </Grid>
       <Grid padding="16px 0px">
-        <Input id="user_name" label="닉네임" _onChange={handleChange} />
+        <Input
+          value={inputs.user_name}
+          id="user_name"
+          label="닉네임"
+          _onChange={handleChange}
+        />
       </Grid>
       <Grid padding="16px 0px">
-        <Input id="pwd" label="비밀번호" _onChange={handleChange} />
+        <Input
+          value={inputs.pwd}
+          id="pwd"
+          label="비밀번호"
+          _onChange={handleChange}
+        />
       </Grid>
       <Grid padding="16px 0px">
-        <Input id="pwdCheck" label="비밀번호 확인" _onChange={handleChange} />
+        <Input
+          value={inputs.pwdCheck}
+          id="pwdCheck"
+          label="비밀번호 확인"
+          _onChange={handleChange}
+        />
       </Grid>
       <Button _onClick={signup} text="회원가입 하기" />
     </Grid>

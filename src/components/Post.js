@@ -1,21 +1,22 @@
 import React from "react";
 import { Button, Grid, Image, Text } from "../elements";
-import moment from "moment";
-import "moment/locale/ko";
 
 import { history } from "../redux/configureStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { changeTime } from "../shared/ChangeTime";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 
 const Post = (props) => {
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user?.user?.uid);
 
-  const { insert_dt, id: post_id } = props;
+  const { insert_dt, id: post_id, is_me, like } = props;
 
-  const changeTime = (insert_dt) => {
-    const text = moment(insert_dt).fromNow();
-    return text;
-  };
+  const isMyLike = like.filter((l) => l === currentUser);
+
+  console.log(isMyLike);
 
   return (
     <Grid>
@@ -32,7 +33,7 @@ const Post = (props) => {
         </Grid>
         <Grid is_flex width="auto">
           <Text>{changeTime(insert_dt)}</Text>
-          {props.is_me && (
+          {is_me && (
             <>
               <Button
                 width="auto"
@@ -64,13 +65,34 @@ const Post = (props) => {
       </Grid>
       <Grid
         padding="16px"
-        _onClick={() => {
-          history.push(`/post/${post_id}`);
-        }}
+        // _onClick={() => {
+        //   history.push(`/post/${post_id}`);
+        // }}
       >
-        <Text margin="0px" bold>
+        <Text margin="10px 0" bold>
           댓글 {props.comment_cnt}개
         </Text>
+        <Grid is_flex_start width="auto">
+          {isMyLike.length ? (
+            <FavoriteOutlinedIcon
+              onClick={() => {
+                dispatch(postActions.toggleLikeFB(post_id, currentUser));
+              }}
+              style={{ cursor: "pointer", color: "red" }}
+            />
+          ) : (
+            <FavoriteBorderOutlinedIcon
+              onClick={() => {
+                dispatch(postActions.toggleLikeFB(post_id, currentUser));
+              }}
+              style={{ cursor: "pointer", color: "red" }}
+            />
+          )}
+
+          <Text margin="0px" bold>
+            {like?.length > 0 ? like?.length : "0"}개
+          </Text>
+        </Grid>
       </Grid>
     </Grid>
   );

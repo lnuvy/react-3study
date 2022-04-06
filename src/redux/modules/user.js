@@ -111,7 +111,7 @@ const logOutFB = () => {
   return function (dispatch, getState, { history }) {
     auth.signOut().then(() => {
       dispatch(logOut());
-      history.replace("/");
+      history.replace("/login");
     });
   };
 };

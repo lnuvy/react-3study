@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid, Image, Text } from "../elements";
+import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as commentActions } from "../redux/modules/comment";
 import Permit from "../shared/Permit";
-import moment from "moment";
-import "moment/locale/ko";
+import { changeTime } from "../shared/ChangeTime";
 
 const CommentList = (props) => {
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ const CommentList = (props) => {
 export default CommentList;
 
 const CommentItem = (props) => {
+  const dispatch = useDispatch();
   const {
     user_profile = "",
     user_name = "asdf",
@@ -42,11 +43,6 @@ const CommentItem = (props) => {
     contents = "후후후",
     insert_dt = "2022-04-01",
   } = props;
-
-  const changeTime = (insert_dt) => {
-    const text = moment(insert_dt).fromNow();
-    return text;
-  };
 
   return (
     <Grid is_flex>
@@ -64,7 +60,9 @@ const CommentItem = (props) => {
               margin="4px 5px"
               padding="7px"
               _color="#d03333"
-              _onClick={() => console.log("삭제")}
+              _onClick={() => {
+                console.log("삭제");
+              }}
             >
               삭제
             </Button>
