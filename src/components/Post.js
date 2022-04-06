@@ -38,17 +38,15 @@ const Post = (props) => {
   }, [likeToast, unAuth]);
 
   return (
-    <Grid>
+    <Grid
+      _onClick={() => {
+        history.push(`/post/${post_id}`);
+      }}
+    >
       {likeToast && <Alerts heart />}
       {unAuth && <Alerts unAuth />}
       <Grid is_flex padding="16px">
-        <Grid
-          is_flex
-          width="auto"
-          _onClick={() => {
-            history.push(`/post/${post_id}`);
-          }}
-        >
+        <Grid is_flex width="auto">
           <Image size={40} shape="circle" src={props.src} />
           <Text bold>{props.user_info.user_name}</Text>
         </Grid>
@@ -61,7 +59,10 @@ const Post = (props) => {
                 margin="4px 5px"
                 padding="7px"
                 _color="#5eaba5"
-                _onClick={() => history.push(`/write/${post_id}`)}
+                _onClick={(e) => {
+                  e.stopPropagation();
+                  history.push(`/write/${post_id}`);
+                }}
               >
                 수정
               </Button>
@@ -70,7 +71,10 @@ const Post = (props) => {
                 margin="4px 5px"
                 padding="7px"
                 _color="#d03333"
-                _onClick={() => dispatch(postActions.deletePostFB(post_id))}
+                _onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(postActions.deletePostFB(post_id));
+                }}
               >
                 삭제
               </Button>

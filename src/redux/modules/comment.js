@@ -159,7 +159,6 @@ export default handleActions(
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         let path = action.payload.post_id;
-        console.log(state.list);
         let newArr = draft.list[path].filter(
           (l) => l.id !== action.payload.comment_id
         );

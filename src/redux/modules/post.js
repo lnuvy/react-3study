@@ -193,13 +193,11 @@ const deletePostFB = (post_id = null) => {
     if (!post_id) return;
 
     const comments = getState().comment.list[post_id];
-    console.log(comments, comments.length);
 
     if (comments.length > 0) {
       const commentDB = firestore.collection("comment");
 
       for (let i = 0; i < comments.length; i++) {
-        console.log(comments[i]);
         commentDB
           .doc(comments[i].id)
           .delete()
