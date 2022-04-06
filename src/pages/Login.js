@@ -24,37 +24,40 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Grid padding="30px">
-        <Text size="32px" bold>
-          로그인
-        </Text>
-        <Grid padding="16px 0px">
-          <Input
-            id="loginId"
-            label="아이디"
-            _onChange={(e) => {
-              setId(e.target.value);
-            }}
-            value={id}
-          />
-        </Grid>
-        <Grid padding="16px 0px">
-          <Input
-            id="loginPwd"
-            label="패스워드"
-            type="password"
-            value={pwd}
-            _onChange={(e) => {
-              setPwd(e.target.value);
-            }}
-            is_submit
-            onSubmit={login}
-          />
-        </Grid>
-        <Button text="로그인하기" _onClick={login} />
+    <Grid padding="30px" margin="50px 0 30px" bg="white">
+      <Text size="32px" bold>
+        로그인
+      </Text>
+      <Grid padding="16px 0px">
+        <Input
+          id="loginId"
+          label="아이디"
+          _onChange={(e) => {
+            setId(e.target.value);
+          }}
+          value={id}
+        />
       </Grid>
-    </>
+      <Grid padding="16px 0px">
+        <Input
+          id="loginPwd"
+          label="패스워드"
+          type="password"
+          value={pwd}
+          _onChange={(e) => {
+            setPwd(e.target.value);
+          }}
+          is_submit
+          onSubmit={login}
+        />
+      </Grid>
+      <Button
+        padding="16px 0"
+        margin="16px 0"
+        text="로그인하기"
+        _onClick={login}
+      />
+    </Grid>
   );
 };
 

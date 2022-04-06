@@ -40,7 +40,7 @@ Button.defaultProps = {
 
 const ElButton = styled.button`
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   width: ${(props) => props.width};
   ${(props) =>
     props._color ? `background: ${props._color};` : `background: #212121;`}

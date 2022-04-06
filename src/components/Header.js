@@ -65,10 +65,17 @@ const Header = (props) => {
     );
   } else
     return (
-      <Grid isSticky zIndexTop is_flex padding="16px" bg="aliceblue">
-        <Grid _onClick={() => history.push("/")}>
-          <Text margin="0px" size="24px" bold>
-            헤더임
+      <Grid
+        isSticky
+        zIndexTop
+        is_flex
+        padding="16px"
+        bg="aliceblue"
+        margin="25px 0 0 0"
+      >
+        <Grid _onClick={() => history.push("/")} _cursor>
+          <Text margin="0px" size="27px" bold>
+            Firebase
           </Text>
         </Grid>
         <Grid is_flex>

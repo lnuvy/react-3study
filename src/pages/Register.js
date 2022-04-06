@@ -33,7 +33,7 @@ const Register = () => {
   };
 
   return (
-    <Grid>
+    <Grid padding="30px" margin="20px 0" bg="white">
       <Text size="32px" bold>
         회원가입
       </Text>
@@ -71,7 +71,12 @@ const Register = () => {
           _onChange={handleChange}
         />
       </Grid>
-      <Button _onClick={signup} text="회원가입 하기" />
+      <Button
+        padding="16px 0"
+        margin="16px 0"
+        _onClick={signup}
+        text="회원가입 하기"
+      />
     </Grid>
   );
 };

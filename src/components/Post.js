@@ -16,20 +16,31 @@ const Post = (props) => {
   const currentComment = useSelector((state) => state.comment?.list[post_id]);
   const isMyLike = like.filter((l) => l === currentUser);
 
-  const [toast, setToast] = useState(false);
+  const [likeToast, setLikeToast] = useState(false);
+  const [unAuth, setUnAuth] = useState(false);
 
   const changeToast = () => {
-    setToast(true);
+    if (!currentUser) {
+      setUnAuth(true);
+    } else {
+      setLikeToast(true);
+    }
   };
 
   useEffect(() => {
-    if (toast) {
-      setTimeout(() => setToast(false), 500);
+    if (likeToast) {
+      setTimeout(() => setLikeToast(false), 500);
     }
-  }, [toast]);
+
+    if (unAuth) {
+      setTimeout(() => setUnAuth(false), 500);
+    }
+  }, [likeToast, unAuth]);
 
   return (
     <Grid>
+      {likeToast && <Alerts heart />}
+      {unAuth && <Alerts unAuth />}
       <Grid is_flex padding="16px">
         <Grid
           is_flex
@@ -79,18 +90,8 @@ const Post = (props) => {
             changeToast();
           }}
         />
-        {toast && (
-          <Alerts>
-            <FavoriteBorderOutlinedIcon style={{ fontSize: "70px" }} />
-            <Text>좋아요를 눌렀습니다.</Text>
-          </Alerts>
-        )}
       </Grid>
       <Grid padding="16px">
-        <Text margin="10px 0" bold>
-          댓글{" "}
-          {currentComment?.length ? currentComment.length : props.comment_cnt}개
-        </Text>
         <Grid is_flex_start width="auto">
           {isMyLike.length ? (
             <FavoriteOutlinedIcon
@@ -113,6 +114,10 @@ const Post = (props) => {
             &nbsp;{like?.length > 0 ? like?.length : "0"}개
           </Text>
         </Grid>
+        <Text margin="10px 0" bold>
+          댓글&nbsp;
+          {currentComment?.length ? currentComment.length : props.comment_cnt}개
+        </Text>
       </Grid>
     </Grid>
   );

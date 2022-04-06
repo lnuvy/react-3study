@@ -192,6 +192,22 @@ const deletePostFB = (post_id = null) => {
   return function (dispatch, getState, { history }) {
     if (!post_id) return;
 
+    const comments = getState().comment.list[post_id];
+    console.log(comments, comments.length);
+
+    if (comments.length > 0) {
+      const commentDB = firestore.collection("comment");
+
+      for (let i = 0; i < comments.length; i++) {
+        console.log(comments[i]);
+        commentDB
+          .doc(comments[i].id)
+          .delete()
+          .then(() => {})
+          .catch((err) => console.log("포스트 댓글도 지우다가 에러", err));
+      }
+    }
+
     const postDB = firestore.collection("post");
     postDB
       .doc(post_id)

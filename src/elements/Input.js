@@ -59,7 +59,7 @@ const TextareaDiv = styled.div`
   & label {
     position: absolute;
     left: 10px;
-    top: 12px;
+    top: 15px;
     padding: 0 5px;
     transition: 0.4s;
     user-select: none;
