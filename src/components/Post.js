@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid, Image, Text } from "../elements";
 
 import { history } from "../redux/configureStore";
@@ -16,6 +16,8 @@ const Post = (props) => {
   const currentComment = useSelector((state) => state.comment?.list[post_id]);
   const isMyLike = like.filter((l) => l === currentUser);
 
+  const [isActive, setIsActive] = useState(false);
+
   const showAlert = () => {
     return (
       <Alerts>
@@ -28,6 +30,7 @@ const Post = (props) => {
 
   return (
     <Grid>
+      <Alerts isActive={isActive}>좋아요를 눌렀습니다.</Alerts>
       <Grid is_flex padding="16px">
         <Grid
           is_flex

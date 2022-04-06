@@ -30,7 +30,7 @@ const Header = (props) => {
             _onClick={() => history.push(`/profile/${is_login.uid}`)}
             width="30%"
           >
-            <Text>프로필</Text>
+            <Text _className="headerText">프로필</Text>
             <PersonOutlineIcon />
           </Grid>
           <Grid
@@ -41,7 +41,7 @@ const Header = (props) => {
               history.push("/noti");
             }}
           >
-            <Text>알림</Text>
+            <Text _className="headerText">알림</Text>
             <NotiBadge />
           </Grid>
           <Grid
@@ -50,7 +50,7 @@ const Header = (props) => {
             width="30%"
             _onClick={() => dispatch(userActions.logOutFB())}
           >
-            로그아웃
+            <Text _className="headerText">로그아웃</Text>
             <LogoutOutlinedIcon size={50} />
           </Grid>
         </Grid>

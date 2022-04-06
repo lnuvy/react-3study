@@ -2,9 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const Text = (props) => {
-  const { children, ...styles } = props;
+  const { children, _className = "", ...styles } = props;
 
-  return <Ptag {...styles}>{children}</Ptag>;
+  return (
+    <Ptag {...styles} className={_className}>
+      {children}
+    </Ptag>
+  );
 };
 
 Text.defaultProps = {

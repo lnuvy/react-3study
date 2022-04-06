@@ -13,15 +13,25 @@ body {
   background: white;
 }
 
+.headerText {
+  display: none;
+}
+
 @media only screen and (min-width: 400px) {
   .App {
     width: 90%;
   }
+  .headerText {
+    display: none;
+  }
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 750px) {
   .App {
     width: 76%;
+  }
+  .headerText {
+    display: block;
   }
 }
 
@@ -29,9 +39,15 @@ body {
   .App {
     width: 70%;
   }
+  .headerText {
+    display: block;
+  }
 }
 @media only screen and (min-width: 1399px) {
   .App {
     width: 60%;
+  }
+  .headerText {
+    display: block;
   }
 }

@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Text from "./Text";
 
 const Alerts = (props) => {
-  const { children = null, ...styles } = props;
+  const { children = null, isActive, ...styles } = props;
 
-  useEffect(() => {});
+  // const [asdf, setAsdf] = useState(false);
+
+  // useEffect(() => {
+
+  //   setAsdf(isActive);
+  // }, [isActive]);
 
   return (
     <WindowAlert>
