@@ -15,6 +15,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import { apiKey } from "./firebase";
 import "./App.css";
+import Alerts from "../elements/Alerts";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
 
   return (
     <>
+      <Alerts>좋아요를 눌렀습니다.</Alerts>
       <div className="App">
         <Header />
         <ConnectedRouter history={history}>

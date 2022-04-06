@@ -73,7 +73,8 @@ const signupFB = (id, pwd, user_name) => {
             dispatch(
               setUser({ user_name, id, user_profile: "", uid: user.user.uid })
             );
-            history.push("/");
+            alert("회원가입 성공");
+            history.push("/login");
           })
           .catch((err) => {
             console.log(err);

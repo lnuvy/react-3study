@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Image = (props) => {
-  const { shape, src, size } = props;
+  const { shape, src, size, _onDoubleClick = () => {} } = props;
 
   const styles = {
     src,
@@ -16,7 +16,7 @@ const Image = (props) => {
   if (shape === "rectangle") {
     return (
       <AspectOutter>
-        <AspectInner {...styles} />
+        <AspectInner {...styles} onDoubleClick={_onDoubleClick} />
       </AspectOutter>
     );
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Grid, Image, Text } from "../elements";
 
 import { history } from "../redux/configureStore";
@@ -7,12 +7,24 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { changeTime } from "../shared/ChangeTime";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import Alerts from "../elements/Alerts";
 
 const Post = (props) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user?.user?.uid);
   const { insert_dt, id: post_id, is_me, like } = props;
+  const currentUser = useSelector((state) => state.user?.user?.uid);
+  const currentComment = useSelector((state) => state.comment?.list[post_id]);
   const isMyLike = like.filter((l) => l === currentUser);
+
+  const showAlert = () => {
+    return (
+      <Alerts>
+        <FavoriteBorderOutlinedIcon style={{ color: "red" }} />
+      </Alerts>
+    );
+  };
+
+  useEffect(() => {});
 
   return (
     <Grid>
@@ -57,16 +69,19 @@ const Post = (props) => {
         <Text>{props.contents}</Text>
       </Grid>
       <Grid padding="30px">
-        <Image shape="rectangle" src={props.image_url} />
+        <Image
+          shape="rectangle"
+          src={props.image_url}
+          _onDoubleClick={() => {
+            dispatch(postActions.toggleLikeFB(post_id, currentUser));
+            showAlert();
+          }}
+        />
       </Grid>
-      <Grid
-        padding="16px"
-        // _onClick={() => {
-        //   history.push(`/post/${post_id}`);
-        // }}
-      >
+      <Grid padding="16px">
         <Text margin="10px 0" bold>
-          댓글 {props.comment_cnt}개
+          댓글{" "}
+          {currentComment?.length ? currentComment.length : props.comment_cnt}개
         </Text>
         <Grid is_flex_start width="auto">
           {isMyLike.length ? (
@@ -86,7 +101,7 @@ const Post = (props) => {
           )}
 
           <Text margin="0px" bold>
-            {like?.length > 0 ? like?.length : "0"}개
+            &nbsp;{like?.length > 0 ? like?.length : "0"}개
           </Text>
         </Grid>
       </Grid>

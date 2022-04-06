@@ -120,7 +120,18 @@ const deleteCommentFB = (comment_id, post_id) => {
   return function (dispatch, getState, { history }) {
     if (!comment_id) return;
 
+    const post_info = getState().post.list[0];
+    const postDB = firestore.collection("post");
+
+    postDB
+      .doc(post_id)
+      .update({ comment_cnt: post_info.comment_cnt - 1 })
+      .then(() => {})
+      .catch(() => {
+        console.log("comment_cnt 개수 줄일때 에러");
+      });
     const commentDB = firestore.collection("comment");
+
     commentDB
       .doc(comment_id)
       .delete()
@@ -148,8 +159,11 @@ export default handleActions(
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         let path = action.payload.post_id;
-        console.log(state.list.path);
-        // console.log(draft.list.);
+        console.log(state.list);
+        let newArr = draft.list[path].filter(
+          (l) => l.id !== action.payload.comment_id
+        );
+        draft.list[path] = newArr;
       }),
   },
   initialState

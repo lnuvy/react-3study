@@ -55,6 +55,7 @@ const Register = () => {
       </Grid>
       <Grid padding="16px 0px">
         <Input
+          type="password"
           value={inputs.pwd}
           id="pwd"
           label="비밀번호"
@@ -63,6 +64,7 @@ const Register = () => {
       </Grid>
       <Grid padding="16px 0px">
         <Input
+          type="password"
           value={inputs.pwdCheck}
           id="pwdCheck"
           label="비밀번호 확인"

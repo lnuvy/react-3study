@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Button } from "../elements";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as imageActions } from "../redux/modules/image";
 

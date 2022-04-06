@@ -38,8 +38,8 @@ const PostList = () => {
               );
             } else {
               return (
-                <Grid key={p.id}>
-                  <Post {...p} />;
+                <Grid margin="20px auto" width="90%" bg="white" key={p.id}>
+                  <Post {...p} />
                 </Grid>
               );
             }

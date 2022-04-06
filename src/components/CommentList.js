@@ -26,7 +26,6 @@ const CommentList = (props) => {
     <>
       <Grid padding="16px">
         {comment_list[post_id].map((c) => {
-          console.log(c);
           if (c.user_id === user_info?.uid) {
             return <CommentItem is_me key={c.id} {...c} />;
           } else {

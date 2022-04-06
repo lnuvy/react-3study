@@ -38,6 +38,14 @@ const PostWrite = (props) => {
   };
 
   const addPost = () => {
+    if (!preview) {
+      alert("사진을 반드시 올려야합니다.");
+      return;
+    }
+    if (!contents) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
     dispatch(postActions.addPostFB(contents));
   };
 
@@ -53,7 +61,7 @@ const PostWrite = (props) => {
     <>
       <Grid padding="15px">
         <Text margin="0px" size="32px" bold>
-          {isEdit ? "게시글 작성" : "게시글 수정"}
+          {isEdit ? "게시글 수정" : "게시글 작성"}
         </Text>
         <Grid margin="20px auto">
           <Upload />
