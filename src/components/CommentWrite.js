@@ -35,7 +35,7 @@ const CommentWrite = (props) => {
           _onClick={write}
           _color="#3c40c6"
         >
-          작성
+          Enter
         </Button>
       </Grid>
     </>

@@ -9,6 +9,7 @@ import { changeTime } from "../shared/ChangeTime";
 const CommentList = (props) => {
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comment.list);
+  const user_info = useSelector((state) => state.user.user);
   const { post_id = null } = props;
 
   useEffect(() => {
@@ -25,7 +26,12 @@ const CommentList = (props) => {
     <>
       <Grid padding="16px">
         {comment_list[post_id].map((c) => {
-          return <CommentItem key={c.id} {...c} />;
+          console.log(c);
+          if (c.user_id === user_info?.uid) {
+            return <CommentItem is_me key={c.id} {...c} />;
+          } else {
+            return <CommentItem key={c.id} {...c} />;
+          }
         })}
       </Grid>
     </>
@@ -42,6 +48,8 @@ const CommentItem = (props) => {
     post_id = 1,
     contents = "후후후",
     insert_dt = "2022-04-01",
+    is_me = false,
+    id = "",
   } = props;
 
   return (
@@ -54,7 +62,7 @@ const CommentItem = (props) => {
         <Text margin="0px">{contents}</Text>
         <Grid is_flex width="30%" margin="0 10px">
           <Text margin="0px">{changeTime(insert_dt)}</Text>
-          <Permit>
+          {is_me && (
             <Button
               width="auto"
               margin="4px 5px"
@@ -62,11 +70,12 @@ const CommentItem = (props) => {
               _color="#d03333"
               _onClick={() => {
                 console.log("삭제");
+                dispatch(commentActions.deleteCommentFB(id, post_id));
               }}
             >
               삭제
             </Button>
-          </Permit>
+          )}
         </Grid>
       </Grid>
     </Grid>

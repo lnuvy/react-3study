@@ -21,9 +21,9 @@ const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({
   post_id,
   comment,
 }));
-const deleteComment = createAction(DELETE_COMMENT, (post_id, comment_id) => ({
-  post_id,
+const deleteComment = createAction(DELETE_COMMENT, (comment_id, post_id) => ({
   comment_id,
+  post_id,
 }));
 
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
@@ -116,8 +116,19 @@ const getCommentFB = (post_id) => {
   };
 };
 
-const deleteCommentFB = (post_id) => {
-  return function (dispatch, getState, { history }) {};
+const deleteCommentFB = (comment_id, post_id) => {
+  return function (dispatch, getState, { history }) {
+    if (!comment_id) return;
+
+    const commentDB = firestore.collection("comment");
+    commentDB
+      .doc(comment_id)
+      .delete()
+      .then((doc) => {
+        dispatch(deleteComment(comment_id, post_id));
+      })
+      .catch((err) => console.log("댓글 삭제중 에러", err));
+  };
 };
 
 export default handleActions(
@@ -134,6 +145,12 @@ export default handleActions(
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
       }),
+    [DELETE_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        let path = action.payload.post_id;
+        console.log(state.list.path);
+        // console.log(draft.list.);
+      }),
   },
   initialState
 );
@@ -141,6 +158,7 @@ export default handleActions(
 const actionCreators = {
   getCommentFB,
   addCommentFB,
+  deleteCommentFB,
   setComment,
   addComment,
 };

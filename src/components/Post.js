@@ -11,12 +11,8 @@ import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 const Post = (props) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user?.user?.uid);
-
   const { insert_dt, id: post_id, is_me, like } = props;
-
   const isMyLike = like.filter((l) => l === currentUser);
-
-  console.log(isMyLike);
 
   return (
     <Grid>
