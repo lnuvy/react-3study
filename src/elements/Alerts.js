@@ -3,29 +3,18 @@ import styled from "styled-components";
 import Text from "./Text";
 
 const Alerts = (props) => {
-  const { children = null, isActive, ...styles } = props;
+  const { children = null, ...styles } = props;
 
-  // const [asdf, setAsdf] = useState(false);
-
-  // useEffect(() => {
-
-  //   setAsdf(isActive);
-  // }, [isActive]);
-
-  return (
-    <WindowAlert>
-      <Text>{children}</Text>
-    </WindowAlert>
-  );
+  return <WindowAlert>{children}</WindowAlert>;
 };
 
 const WindowAlert = styled.div`
   position: fixed;
-  top: 25%;
+  top: 40%;
   left: 25%;
   width: 50vw;
   height: 20vh;
-  background: tomato;
+  /* background: tomato; */
   z-index: 999;
   border-radius: 20px;
   box-sizing: border-box;

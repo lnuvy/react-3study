@@ -16,21 +16,20 @@ const Post = (props) => {
   const currentComment = useSelector((state) => state.comment?.list[post_id]);
   const isMyLike = like.filter((l) => l === currentUser);
 
-  const [isActive, setIsActive] = useState(false);
+  const [toast, setToast] = useState(false);
 
-  const showAlert = () => {
-    return (
-      <Alerts>
-        <FavoriteBorderOutlinedIcon style={{ color: "red" }} />
-      </Alerts>
-    );
+  const changeToast = () => {
+    setToast(true);
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (toast) {
+      setTimeout(() => setToast(false), 500);
+    }
+  }, [toast]);
 
   return (
     <Grid>
-      <Alerts isActive={isActive}>좋아요를 눌렀습니다.</Alerts>
       <Grid is_flex padding="16px">
         <Grid
           is_flex
@@ -77,9 +76,15 @@ const Post = (props) => {
           src={props.image_url}
           _onDoubleClick={() => {
             dispatch(postActions.toggleLikeFB(post_id, currentUser));
-            showAlert();
+            changeToast();
           }}
         />
+        {toast && (
+          <Alerts>
+            <FavoriteBorderOutlinedIcon style={{ fontSize: "70px" }} />
+            <Text>좋아요를 눌렀습니다.</Text>
+          </Alerts>
+        )}
       </Grid>
       <Grid padding="16px">
         <Text margin="10px 0" bold>
@@ -98,6 +103,7 @@ const Post = (props) => {
             <FavoriteBorderOutlinedIcon
               onClick={() => {
                 dispatch(postActions.toggleLikeFB(post_id, currentUser));
+                changeToast();
               }}
               style={{ cursor: "pointer", color: "red" }}
             />

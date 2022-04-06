@@ -23,7 +23,7 @@ const PostList = () => {
 
   return (
     <>
-      <Grid bg={"#EFF6FF"} padding="20px 0">
+      <Grid bg={"#34e7e4b5"} padding="20px 0">
         <InfinityScroll
           callNext={() => dispatch(postActions.getPostFB(paging.next))}
           isNext={paging.next ? true : false}

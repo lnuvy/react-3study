@@ -23,6 +23,8 @@ Grid.defaultProps = {
   center: false,
   _onClick: () => {},
   _cursor: false,
+  isSticky: false,
+  zIndexTop: false,
 };
 
 const GridBox = styled.div`
@@ -39,6 +41,8 @@ const GridBox = styled.div`
     props.is_flex_start
       ? `display: flex; align-items: center; justify-content: start;`
       : null}
+  ${(props) => (props.isSticky ? `position: sticky; top: 0;` : null)};
+  ${(props) => (props.zIndexTop ? `z-index: 998;` : null)};
 
   height: 100%;
   box-sizing: border-box;

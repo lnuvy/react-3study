@@ -18,7 +18,14 @@ const Header = (props) => {
   if (isSession && is_login) {
     return (
       <Permit>
-        <Grid is_flex padding="16px">
+        <Grid
+          isSticky
+          zIndexTop
+          is_flex
+          padding="16px"
+          bg="aliceblue"
+          margin="25px 0 0 0"
+        >
           <Grid is_flex_center _cursor _onClick={() => history.push("/")}>
             <Text margin="0px" size="27px" bold>
               Firebase 사진첩
@@ -58,7 +65,7 @@ const Header = (props) => {
     );
   } else
     return (
-      <Grid is_flex padding="16px">
+      <Grid isSticky zIndexTop is_flex padding="16px" bg="aliceblue">
         <Grid _onClick={() => history.push("/")}>
           <Text margin="0px" size="24px" bold>
             헤더임
