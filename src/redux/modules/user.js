@@ -37,8 +37,6 @@ const loginFB = (id, pwd) => {
       auth
         .signInWithEmailAndPassword(id, pwd)
         .then((user) => {
-          console.log(user);
-          console.log(user.user.displayName);
           dispatch(
             setUser({
               user_name: user.user.displayName,
@@ -64,7 +62,6 @@ const signupFB = (id, pwd, user_name) => {
     auth
       .createUserWithEmailAndPassword(id, pwd)
       .then((user) => {
-        console.log(user);
         auth.currentUser
           .updateProfile({
             displayName: user_name,
@@ -123,13 +120,11 @@ const setProfileFB = (user_name, profileURL = null) => {
     const user = auth.currentUser;
     if (user !== null) {
       if (!profileURL) {
-        console.log(user);
         user
           .updateProfile({
             displayName: user_name,
           })
           .then(() => {
-            console.log(user.displayName);
             dispatch(
               setProfile({
                 id: user.email,

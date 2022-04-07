@@ -24,7 +24,7 @@ const PostWrite = (props) => {
   const { history } = props;
 
   const [contents, setContents] = useState(_post ? _post.contents : "");
-  const [layout, setLayout] = useState(_post ? _post?.layout : "");
+  const [layout, setLayout] = useState(_post ? _post?.layout : "down");
 
   useEffect(() => {
     if (isEdit && !_post) {
@@ -50,14 +50,12 @@ const PostWrite = (props) => {
       alert("내용을 입력해주세요.");
       return;
     }
-    dispatch(postActions.addPostFB(contents));
+    dispatch(postActions.addPostFB(contents, layout));
   };
 
   const editPost = () => {
     dispatch(postActions.editPostFB(post_id, { contents }));
   };
-
-  console.log(layout);
 
   if (!isLogin) {
     return <Unauth />;
@@ -69,43 +67,46 @@ const PostWrite = (props) => {
         <Text margin="0px" size="32px" bold>
           {isEdit ? "게시글 수정" : "게시글 작성"}
         </Text>
-        <Grid is_flex_center>
-          <Text bold size="20px" margin="30px">
-            레이아웃 선택
-          </Text>
-          <div className="container">
-            <input id="dropdown" type="checkbox" />
-            <label className="dropdownLabel" for="dropdown">
-              <div>{layout ? layout : "선택하세요"}</div>
-              <KeyboardArrowDownIcon className="caretIcon" />
-            </label>
-            <div className="content">
-              <ul style={{ zIndex: "999" }}>
-                <li
-                  style={{ zIndex: "999" }}
-                  id="left"
-                  onClick={(e) => setLayout(e.target.id)}
-                >
-                  left
-                </li>
-                <li
-                  style={{ zIndex: "999" }}
-                  id="right"
-                  onClick={(e) => setLayout(e.target.id)}
-                >
-                  right
-                </li>
-                <li
-                  style={{ zIndex: "999" }}
-                  id="down"
-                  onClick={(e) => setLayout(e.target.id)}
-                >
-                  down
-                </li>
-              </ul>
+        {!isEdit && (
+          <Grid is_flex_center>
+            <Text bold size="20px" margin="30px">
+              레이아웃 선택
+            </Text>
+            <div className="container">
+              <input id="dropdown" type="checkbox" />
+              <label className="dropdownLabel" for="dropdown">
+                <div>{layout ? layout : "선택하세요"}</div>
+                <KeyboardArrowDownIcon className="caretIcon" />
+              </label>
+              <div className="content">
+                <ul style={{ zIndex: "999" }}>
+                  <li
+                    style={{ zIndex: "999" }}
+                    id="left"
+                    onClick={(e) => setLayout(e.target.id)}
+                  >
+                    left
+                  </li>
+                  <li
+                    style={{ zIndex: "999" }}
+                    id="right"
+                    onClick={(e) => setLayout(e.target.id)}
+                  >
+                    right
+                  </li>
+                  <li
+                    style={{ zIndex: "999" }}
+                    id="down"
+                    onClick={(e) => setLayout(e.target.id)}
+                  >
+                    down
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </Grid>
+          </Grid>
+        )}
+
         <Grid margin="20px auto">
           <Upload />
         </Grid>

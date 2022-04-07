@@ -22,10 +22,10 @@ const Upload = () => {
     };
   };
 
-  const uploadFB = () => {
-    let image = fileInput.current.files[0];
-    dispatch(imageActions.uploadImageFB(image));
-  };
+  // const uploadFB = () => {
+  //   let image = fileInput.current.files[0];
+  //   dispatch(imageActions.uploadImageFB(image));
+  // };
 
   return (
     <>

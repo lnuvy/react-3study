@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
 import Header from "../components/Header";
 import Search from "../components/Search";
-import { Button, Grid } from "../elements";
 import { Login, NotFound, PostList, PostWrite, Profile } from "../pages";
 import Notification from "../pages/Notification";
 import PostDetail from "../pages/PostDetail";
