@@ -11,19 +11,26 @@ import Alerts from "../elements/Alerts";
 
 const Post = (props) => {
   const dispatch = useDispatch();
-  const { insert_dt, id: post_id, is_me, like } = props;
+  const { insert_dt, id: post_id, is_me, like, layout = null } = props;
   const currentUser = useSelector((state) => state.user?.user?.uid);
   const currentComment = useSelector((state) => state.comment?.list[post_id]);
   const isMyLike = like.filter((l) => l === currentUser);
 
   const [likeToast, setLikeToast] = useState(false);
+  const [unlikeToast, setUnLikeToast] = useState(false);
   const [unAuth, setUnAuth] = useState(false);
 
-  const changeToast = () => {
+  const changeToast = (toggle) => {
     if (!currentUser) {
       setUnAuth(true);
-    } else {
+      return;
+    }
+    if (!toggle.length) {
+      console.log("like", toggle);
       setLikeToast(true);
+    } else {
+      console.log("unLike", toggle);
+      setUnLikeToast(true);
     }
   };
 
@@ -31,21 +38,32 @@ const Post = (props) => {
     if (likeToast) {
       setTimeout(() => setLikeToast(false), 500);
     }
-
+    if (unlikeToast) {
+      setTimeout(() => setUnLikeToast(false), 500);
+    }
     if (unAuth) {
       setTimeout(() => setUnAuth(false), 500);
     }
-  }, [likeToast, unAuth]);
+  }, [likeToast, unlikeToast, unAuth]);
+
+  const handleLike = () => {
+    dispatch(postActions.toggleLikeFB(post_id, currentUser));
+    changeToast(isMyLike);
+  };
 
   return (
-    <Grid
-      _onClick={() => {
-        history.push(`/post/${post_id}`);
-      }}
-    >
+    <Grid>
+      {unlikeToast && <Alerts unHeart />}
       {likeToast && <Alerts heart />}
       {unAuth && <Alerts unAuth />}
-      <Grid is_flex padding="16px">
+      <Grid
+        is_flex
+        padding="16px"
+        _cursor
+        _onClick={() => {
+          history.push(`/post/${post_id}`);
+        }}
+      >
         <Grid is_flex width="auto">
           <Image size={40} shape="circle" src={props.src} />
           <Text bold>{props.user_info.user_name}</Text>
@@ -82,34 +100,74 @@ const Post = (props) => {
           )}
         </Grid>
       </Grid>
-      <Grid padding="16px">
-        <Text>{props.contents}</Text>
-      </Grid>
-      <Grid padding="30px">
-        <Image
-          shape="rectangle"
-          src={props.image_url}
-          _onDoubleClick={() => {
-            dispatch(postActions.toggleLikeFB(post_id, currentUser));
-            changeToast();
-          }}
-        />
-      </Grid>
+
+      {layout === "right" && (
+        <Grid padding="16px">
+          <Grid is_flex>
+            <Grid width="30%">
+              <Text center>{props.contents}</Text>
+            </Grid>
+            <Grid width="70%">
+              <Image
+                shape="rectangle"
+                src={props.image_url}
+                _onDoubleClick={(e) => {
+                  e.stopPropagation();
+                  handleLike();
+                }}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
+
+      {layout === "left" && (
+        <Grid padding="16px">
+          <Grid is_flex>
+            <Grid width="70%">
+              <Image
+                shape="rectangle"
+                src={props.image_url}
+                _onDoubleClick={(e) => {
+                  e.stopPropagation();
+                  handleLike();
+                }}
+              />
+            </Grid>
+            <Grid width="30%">
+              <Text center>{props.contents}</Text>
+            </Grid>
+          </Grid>
+        </Grid>
+      )}
+      {layout === "down" && (
+        <>
+          <Grid padding="5px 16px" margin="0 20px">
+            <Text>{props.contents}</Text>
+          </Grid>
+          <Grid padding="10px 30px">
+            <Image
+              shape="rectangle"
+              src={props.image_url}
+              _onDoubleClick={(e) => {
+                e.stopPropagation();
+                handleLike();
+              }}
+            />
+          </Grid>
+        </>
+      )}
+
       <Grid padding="16px">
         <Grid is_flex_start width="auto">
           {isMyLike.length ? (
             <FavoriteOutlinedIcon
-              onClick={() => {
-                dispatch(postActions.toggleLikeFB(post_id, currentUser));
-              }}
+              onClick={handleLike}
               style={{ cursor: "pointer", color: "red" }}
             />
           ) : (
             <FavoriteBorderOutlinedIcon
-              onClick={() => {
-                dispatch(postActions.toggleLikeFB(post_id, currentUser));
-                changeToast();
-              }}
+              onClick={handleLike}
               style={{ cursor: "pointer", color: "red" }}
             />
           )}

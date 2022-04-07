@@ -12,6 +12,7 @@ body {
   margin: 0 auto;
   background: white;
   min-height: 80vh;
+  user-select: none;
 }
 
 .headerText {
@@ -46,7 +47,7 @@ body {
 }
 @media only screen and (min-width: 1399px) {
   .App {
-    width: 60%;
+    width: 50%;
   }
   .headerText {
     display: block;

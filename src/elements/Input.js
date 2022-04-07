@@ -12,6 +12,7 @@ const Input = (props) => {
     multiLine = false,
     value = "",
     onSubmit = () => {},
+    _disabled = false,
   } = props;
 
   if (multiLine) {
@@ -38,6 +39,7 @@ const Input = (props) => {
           onChange={_onChange}
           placeholder=" "
           value={value}
+          disabled={_disabled}
           onKeyPress={(e) => {
             if (e.key === "Enter") onSubmit(e);
           }}
@@ -64,7 +66,7 @@ const TextareaDiv = styled.div`
     transition: 0.4s;
     user-select: none;
     font-size: 22px;
-    z-index: -999;
+    z-index: 2;
   }
 
   & textarea:focus + label,
@@ -73,7 +75,7 @@ const TextareaDiv = styled.div`
     font-size: 13px;
     background-color: white;
     color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
+    z-index: 90;
   }
 `;
 
@@ -86,6 +88,7 @@ const ElTextarea = styled.textarea`
   color: black;
   font-size: 20px;
   padding: 22px;
+  z-index: 3;
 `;
 
 const InputWrap = styled.div`
@@ -111,12 +114,12 @@ const InputWrap = styled.div`
     transform: translateX(15px) translateY(-19px);
     background-color: white;
     color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
+    z-index: 92;
   }
 `;
 
 const InputBar = styled.input`
-  z-index: 998;
+  /* z-index: 90; */
   width: 100%;
   padding: 12px 8px;
   border: 1px solid #212121;

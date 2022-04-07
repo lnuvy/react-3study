@@ -1,11 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, Grid, Input } from "../elements";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 const Upload = () => {
   const dispatch = useDispatch();
   const isUploading = useSelector((state) => state.image.uploading);
   const fileInput = useRef();
+
+  const [fileName, setFileName] = useState("");
 
   const selectFile = (e) => {
     const reader = new FileReader();
@@ -14,8 +17,8 @@ const Upload = () => {
     reader.readAsDataURL(file);
 
     reader.onloadend = () => {
-      console.log(reader.result);
       dispatch(imageActions.setPreview(reader.result));
+      setFileName(e.target.value);
     };
   };
 
@@ -26,12 +29,26 @@ const Upload = () => {
 
   return (
     <>
-      <input
-        type="file"
-        onChange={selectFile}
-        ref={fileInput}
-        disabled={isUploading}
-      />
+      <Grid is_flex>
+        <Input
+          width="100%"
+          label="사진 선택"
+          value={fileName}
+          margin="0"
+          _disabled
+        />
+        <Button width="200px" margin="0 20px">
+          <label htmlFor="file">파일 찾기</label>
+        </Button>
+        <input
+          style={{ display: "none" }}
+          id="file"
+          type="file"
+          onChange={selectFile}
+          ref={fileInput}
+          disabled={isUploading}
+        />
+      </Grid>
     </>
   );
 };

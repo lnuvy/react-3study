@@ -5,14 +5,30 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 
 const Alerts = (props) => {
-  const { children = null, heart = false, unAuth = false, ...styles } = props;
+  const {
+    children = null,
+    heart = false,
+    unAuth = false,
+    unHeart = false,
+  } = props;
 
   if (heart) {
     return (
       <WindowAlert>
-        <FavoriteBorderOutlinedIcon style={{ fontSize: "70px" }} />
-        <Text size="20px" bold>
+        <FavoriteBorderOutlinedIcon style={{ fontSize: "80px" }} />
+        <Text size="24px" bold>
           좋아요를 눌렀습니다.
+        </Text>
+      </WindowAlert>
+    );
+  }
+
+  if (unHeart) {
+    return (
+      <WindowAlert>
+        <FavoriteBorderOutlinedIcon style={{ fontSize: "80px" }} />
+        <Text size="24px" bold>
+          좋아요를 취소했어요.
         </Text>
       </WindowAlert>
     );
@@ -20,8 +36,8 @@ const Alerts = (props) => {
   if (unAuth) {
     return (
       <WindowAlert>
-        <VpnKeyOutlinedIcon style={{ fontSize: "70px" }} />
-        <Text size="20px" bold>
+        <VpnKeyOutlinedIcon style={{ fontSize: "80px" }} />
+        <Text size="24px" bold>
           로그인을 해주세요!
         </Text>
       </WindowAlert>
@@ -36,7 +52,6 @@ const WindowAlert = styled.div`
   left: 25%;
   width: 50vw;
   height: 20vh;
-  /* background: tomato; */
   z-index: 999;
   border-radius: 20px;
   box-sizing: border-box;

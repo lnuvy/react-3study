@@ -38,6 +38,7 @@ const initialPost = {
   contents: "",
   comment_cnt: 0,
   like: [],
+  layout: "down",
   insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
 };
 
@@ -79,7 +80,7 @@ const getPostFB = (start = null, size = 3) => {
   };
 };
 
-const addPostFB = (contents = "") => {
+const addPostFB = (contents = "", layout = "down") => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection("post");
 
@@ -94,6 +95,7 @@ const addPostFB = (contents = "") => {
     const data = {
       user_info,
       ...initialPost,
+      layout,
       contents,
       insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
     };
@@ -194,7 +196,7 @@ const deletePostFB = (post_id = null) => {
 
     const comments = getState().comment.list[post_id];
 
-    if (comments.length > 0) {
+    if (comments?.length > 0) {
       const commentDB = firestore.collection("comment");
 
       for (let i = 0; i < comments.length; i++) {
@@ -246,7 +248,7 @@ const toggleLikeFB = (post_id, user_id) => {
         // 로그인한 유저가 이 게시글에 좋아요가 안돼있을때
         if (existLike.indexOf(user_id) === -1) {
           let newLike = [...existLike, user_id];
-          console.log(newLike);
+
           postDB
             .doc(post_id)
             .update({ like: newLike })
@@ -255,7 +257,6 @@ const toggleLikeFB = (post_id, user_id) => {
             });
         } else {
           let newLike = existLike.filter((l) => l !== user_id);
-          console.log(newLike);
 
           postDB
             .doc(post_id)

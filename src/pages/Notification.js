@@ -34,7 +34,6 @@ const Notification = () => {
     <>
       <Grid padding="15px" bg="#EFF6FF" margin="8px 0px">
         {noti.map((n, i) => {
-          console.log(n);
           return <Card key={`noti_${i}`} {...n} />;
         })}
       </Grid>
